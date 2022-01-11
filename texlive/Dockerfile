@@ -14,9 +14,7 @@ RUN curl -o actions-runner-linux-x64-2.285.1.tar.gz -L https://github.com/action
 
 COPY start.sh .
 
-RUN echo 0 > linked 
-
-RUN chown 1001:121 linked start.sh && chmod +x start.sh
+RUN chown 1001:121 start.sh && chmod +x start.sh
 
 USER 1001
 
