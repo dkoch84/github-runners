@@ -18,7 +18,7 @@ WORKDIR /runner
 
 RUN curl -o actions-runner-linux-arm64-2.287.1.tar.gz -L https://github.com/actions/runner/releases/download/v2.287.1/actions-runner-linux-arm64-2.287.1.tar.gz && tar xzf ./actions-runner-linux-arm64-2.287.1.tar.gz && rm ./actions-runner-linux-arm64-2.287.1.tar.gz
 
-COPY entrypoint.sh .
+COPY start.sh .
 
 RUN chown 1001:121 start.sh && chmod +x start.sh
 
@@ -26,4 +26,4 @@ RUN rm -r /var/cache/pacman/pkg/*
 
 USER 1001
 
-ENTRYPOINT ["/usr/bin/bash", "-c", "/runner/entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/bash", "-c", "/runner/start.sh"]
