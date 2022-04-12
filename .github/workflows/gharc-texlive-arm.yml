@@ -1,4 +1,4 @@
-name: Docker for texlive-arm
+name: Docker for gharc-texlive-arm
 on:
   push:
     branches: [ master ]
