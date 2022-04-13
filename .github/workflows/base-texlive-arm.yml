@@ -1,13 +1,13 @@
-name: Docker for texlive-arm
+name: Docker for base-texlive-arm
 on:
   push:
     branches: [ master ]
     paths:
-      - 'texlive-arm/**'
+      - 'base-images/base-texlive-arm/**'
   pull_request:
     branches: [ master ]
     paths:
-      - 'texlive-arm/**'
+      - 'base-images/base-texlive-arm/**'
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -24,10 +24,10 @@ jobs:
         shell: bash
         run: |
           docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-          DOCKER_BUILDKIT=1 docker buildx build --platform linux/arm64 texlive-arm/ -t ghcr.io/dkoch84/texlive-arm:$(date +%Y%m%d.$GITHUB_RUN_ATTEMPT)
+          DOCKER_BUILDKIT=1 docker buildx build --platform linux/arm64 base-images/base-texlive-arm/ -t ghcr.io/dkoch84/base-texlive-arm
           docker images
       - name: Docker Push
         shell: bash
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u dkoch84 --password-stdin
-          docker push ghcr.io/dkoch84/texlive-arm:$(date +%Y%m%d.$GITHUB_RUN_ATTEMPT)
+          docker push ghcr.io/dkoch84/base-texlive-arm:latest
