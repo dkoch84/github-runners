@@ -5,7 +5,7 @@ RUN pacman -Sy texlive-core texlive-formatsextra texlive-latexextra ttf-lato --n
 
 COPY texlive-fonts-fontawesome-2021.61408-1-any.pkg.tar .
 
-RUN pacman -U texlive-fonts-fontawesome-2021.61408-1-any.pkg.tar --noconfirm && rm -r /var/cache/pacman/pkg/*
+RUN pacman -U texlive-fonts-fontawesome-2021.61408-1-any.pkg.tar --noconfirm
 
 RUN mkdir -p /var/run/secrets/kubernetes.io/serviceaccount
 
