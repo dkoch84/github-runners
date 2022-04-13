@@ -12,18 +12,18 @@ WORKDIR /usr/share/fonts/TTF
 
 RUN for i in https://raw.github.com/googlefonts/robotoslab/master/fonts/ttf/RobotoSlab-Black.ttf https://raw.github.com/googlefonts/robotoslab/master/fonts/ttf/RobotoSlab-Bold.ttf https://raw.github.com/googlefonts/robotoslab/master/fonts/ttf/RobotoSlab-ExtraBold.ttf https://raw.github.com/googlefonts/robotoslab/master/fonts/ttf/RobotoSlab-ExtraLight.ttf https://raw.github.com/googlefonts/robotoslab/master/fonts/ttf/RobotoSlab-Light.ttf https://raw.github.com/googlefonts/robotoslab/master/fonts/ttf/RobotoSlab-Medium.ttf https://raw.github.com/googlefonts/robotoslab/master/fonts/ttf/RobotoSlab-Regular.ttf https://raw.github.com/googlefonts/robotoslab/master/fonts/ttf/RobotoSlab-SemiBold.ttf https://raw.github.com/googlefonts/robotoslab/master/fonts/ttf/RobotoSlab-Thin.ttf; do curl -LJO $i; done && fc-cache
 
-RUN mkdir runner && cd runner
+RUN mkdir /runner && mkdir /runnertmp $$ cd /runnertmp
 
-WORKDIR /runner
+WORKDIR /runnertmp
 
 RUN curl -o actions-runner-linux-arm64-2.287.1.tar.gz -L https://github.com/actions/runner/releases/download/v2.287.1/actions-runner-linux-arm64-2.287.1.tar.gz && tar xzf ./actions-runner-linux-arm64-2.287.1.tar.gz && rm ./actions-runner-linux-arm64-2.287.1.tar.gz
 
-COPY entrypoint.sh .
+COPY entrypoint.sh /usr/bin/
 
-RUN chown 1001:121 entrypoint.sh && chmod +x entrypoint.sh
+RUN chown 1001:121 /usr/bin/entrypoint.sh && chmod +x /usr/bin/entrypoint.sh
 
 RUN rm -r /var/cache/pacman/pkg/*
 
 USER 1001
 
-ENTRYPOINT ["/usr/bin/bash", "-c", "/runner/entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/bash", "-c", "/usr/bin/entrypoint.sh"]

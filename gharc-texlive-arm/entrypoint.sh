@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 
+RUNNER_ASSETS_DIR=${RUNNER_ASSETS_DIR:-/runnertmp}
 RUNNER_HOME=${RUNNER_HOME:-/runner}
 
 LIGHTGREEN="\e[0;32m"
@@ -62,6 +63,8 @@ if [ ! -d "${RUNNER_HOME}" ]; then
     error "${RUNNER_HOME} should be an emptyDir mount. Please fix the pod spec."
     exit 1
 fi
+
+cp -r "$RUNNER_ASSETS_DIR"/* "$RUNNER_HOME"/
 
 cd ${RUNNER_HOME}
 # past that point, it's all relative pathes from /runner
