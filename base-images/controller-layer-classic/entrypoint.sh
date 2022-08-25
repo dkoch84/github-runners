@@ -1,5 +1,4 @@
 #!/bin/bash
-
 RUNNER_ASSETS_DIR=${RUNNER_ASSETS_DIR:-/runnertmp}
 RUNNER_HOME=${RUNNER_HOME:-/runner}
 
