@@ -1,2 +1,2 @@
 FROM scratch
-COPY entrypoint.sh .
+COPY . .
