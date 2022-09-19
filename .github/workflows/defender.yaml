@@ -1,0 +1,38 @@
+name: Defender Scan
+
+on:
+  workflow_dispatch:
+    inputs:
+      image:
+        description: "image to scan"
+        required: false
+
+jobs:
+  clusterAdmin:
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      packages: read
+    runs-on: ubuntu-latest
+    steps:
+    # Checks out the repository this file is in
+    - uses: actions/checkout@v3
+
+    - name: Log into ghcr.io
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}  
+      
+    - name: ghcr Pull
+      run: |
+        docker pull ghcr.io/dkoch84/gharc-texlive-arm:20220413.1
+
+    - uses: Azure/container-scan@v0 
+      name: Scan image for vulnerabilities
+      id: container-scan
+      continue-on-error: true
+      with:
+        image-name: ghcr.io/dkoch84/gharc-texlive-arm:20220413.1
