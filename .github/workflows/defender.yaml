@@ -29,10 +29,13 @@ jobs:
     - name: ghcr Pull
       run: |
         docker pull ghcr.io/dkoch84/gharc-texlive-arm:20220413.1
-
-    - uses: Azure/container-scan@v0 
-      name: Scan image for vulnerabilities
-      id: container-scan
-      continue-on-error: true
+        
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
       with:
-        image-name: ghcr.io/dkoch84/gharc-texlive-arm:20220413.1
+        image-ref: summerwind/actions-runner
+        format: 'table'
+        exit-code: '1'
+        ignore-unfixed: true
+        vuln-type: 'os,library'
+        severity: 'CRITICAL,HIGH'
