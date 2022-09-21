@@ -13,6 +13,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults: 
+      shell: bash
+      working-directory: ARC/runner-hardened
     permissions:
       contents: read
       packages: write
@@ -24,7 +27,7 @@ jobs:
         run: |
           pwd
           ls -l
-          docker buildx build --platform linux/arm64 ARC/runner-hardened/ -t ghcr.io/dkoch84/runner-hardened:$(date +%Y%m%d.$GITHUB_RUN_ATTEMPT)
+          docker buildx build . -t ghcr.io/dkoch84/runner-hardened:$(date +%Y%m%d.$GITHUB_RUN_ATTEMPT)
           docker images
       - name: Docker Push
         shell: bash
