@@ -1,4 +1,4 @@
-name: Defender Scan
+name: Trivy Scan
 
 on:
   workflow_dispatch:
@@ -35,7 +35,7 @@ jobs:
       with:
         image-ref: summerwind/actions-runner
         format: 'table'
-        exit-code: '1'
+        exit-code: '0'
         ignore-unfixed: true
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'
