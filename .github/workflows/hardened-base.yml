@@ -1,17 +1,15 @@
-name: Docker for controller-layer
+name: Docker for hardenening
 on:
   push:
     branches: [ master ]
     paths:
-      - 'base-images/controller-layer/**'
+      - 'ARC/runner-hardened/**'
   pull_request:
     branches: [ master ]
     paths:
-      - 'base-images/controller-layer/**'
+      - 'ARC/runner-hardened/**'
   workflow_dispatch:
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+    
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,10 +23,10 @@ jobs:
         shell: bash
         run: |
           docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-          DOCKER_BUILDKIT=1 docker buildx build base-images/controller-layer/ -t ghcr.io/dkoch84/controller-layer
+          docker buildx build --platform linux/arm64 runner-hardened/ -t ghcr.io/dkoch84/runner-hardened:$(date +%Y%m%d.$GITHUB_RUN_ATTEMPT)
           docker images
       - name: Docker Push
         shell: bash
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u dkoch84 --password-stdin
-          docker push ghcr.io/dkoch84/controller-layer:latest
+          docker push ghcr.io/dkoch84/runner-hardened:$(date +%Y%m%d.$GITHUB_RUN_ATTEMPT)
