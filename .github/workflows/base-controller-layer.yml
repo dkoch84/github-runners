@@ -31,4 +31,4 @@ jobs:
         shell: bash
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u dkoch84 --password-stdin
-          docker push -a ghcr.io/dkoch84/controller-layer:latest
+          docker push -a ghcr.io/dkoch84/controller-layer
