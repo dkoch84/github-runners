@@ -1,7 +1,7 @@
 # Base image for texlive runners on ARM64
 FROM menci/archlinuxarm:base
 
-RUN pacman -Sy texlive-core texlive-formatsextra texlive-latexextra ttf-lato pdftk --noconfirm && rm -r /var/cache/pacman/pkg/*
+RUN pacman -Sy texlive-core texlive-formatsextra texlive-pictures texlive-latexextra ttf-lato pdftk --noconfirm && rm -r /var/cache/pacman/pkg/*
 
 COPY texlive-fonts-fontawesome-2021.61408-1-any.pkg.tar .
 
