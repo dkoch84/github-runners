@@ -4,7 +4,7 @@ RUN mkdir /runner && mkdir /runnertmp && cd /runnertmp
 
 WORKDIR /runnertmp
 
-RUN curl -o actions-runner-linux-arm64-2.287.1.tar.gz -L https://github.com/actions/runner/releases/download/v2.287.1/actions-runner-linux-arm64-2.287.1.tar.gz && tar xzf ./actions-runner-linux-arm64-2.287.1.tar.gz && rm ./actions-runner-linux-arm64-2.287.1.tar.gz
+RUN curl -o actions-runner-linux-arm64-2.304.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.304.0/actions-runner-linux-arm64-2.304.0.tar.gz && tar xzf ./actions-runner-linux-arm64-2.304.0.tar.gz && rm ./actions-runner-linux-arm64-2.304.0.tar.gz
 
 COPY entrypoint.sh /usr/bin/
 
